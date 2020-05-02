@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "factors",
+  "info": {
+    "name": "factor"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "restaurant": {
+      "model": "restaurant",
+      "via": "factors"
+    },
+    "paid": {
+      "type": "boolean"
+    },
+    "orders": {
+      "collection": "order"
+    },
+    "price": {
+      "type": "integer"
+    }
+  }
+}

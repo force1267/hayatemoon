@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "advertises",
+  "info": {
+    "name": "advertise"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "advertises"
+    },
+    "boosts": {
+      "collection": "boost",
+      "via": "advertise"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "boosts",
+  "info": {
+    "name": "boost"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "vip",
+        "showcase"
+      ]
+    },
+    "before": {
+      "type": "datetime"
+    },
+    "price": {
+      "type": "integer"
+    },
+    "user": {
+      "via": "boosts",
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "advertise": {
+      "via": "boosts",
+      "model": "advertise"
+    }
+  }
+}

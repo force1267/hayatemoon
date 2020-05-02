@@ -1,0 +1,25 @@
+{
+  "kind": "singleType",
+  "collectionName": "prices",
+  "info": {
+    "name": "settings"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "boost_vip_2_days": {
+      "type": "integer"
+    },
+    "boost_showcase_2_days": {
+      "type": "integer"
+    },
+    "restaurant_cut_percent": {
+      "type": "integer"
+    },
+    "factor_close_hourly": {
+      "type": "integer"
+    }
+  }
+}
