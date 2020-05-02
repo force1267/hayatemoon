@@ -24,6 +24,8 @@ fetch(`${api}/restaurant`).then(...)
 
 - api endpoint document is available at https://strapi.io/documentation/3.0.0-beta.x/content-api/api-endpoints.html
 
+- document about query and filter api results is available at https://strapi.io/documentation/3.0.0-beta.x/content-api/parameters.html
+
 - then each time start using :
 ```bash
 yarn develop
