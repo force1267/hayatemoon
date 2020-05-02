@@ -22,10 +22,13 @@ const api = "/" // for development
 fetch(`${api}/restaurant`).then(...)
 ```
 
-- then each time just start :
+- api endpoint document is available at https://strapi.io/documentation/3.0.0-beta.x/content-api/api-endpoints.html
+
+- then each time start using :
 ```bash
 yarn develop
 ```
+
 
 ## production
 
