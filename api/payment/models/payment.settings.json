@@ -10,7 +10,7 @@
   },
   "attributes": {
     "price": {
-      "type": "biginteger"
+      "type": "integer"
     },
     "done": {
       "type": "boolean"
