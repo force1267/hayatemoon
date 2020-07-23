@@ -12,13 +12,9 @@
     "price": {
       "type": "integer"
     },
-    "buyer": {
-      "via": "order",
-      "plugin": "users-permissions",
-      "model": "user"
-    },
     "restaurant": {
-      "model": "restaurant"
+      "model": "restaurant",
+      "via": "orders"
     },
     "state": {
       "type": "enumeration",
@@ -33,6 +29,11 @@
     },
     "dishes": {
       "collection": "dish"
+    },
+    "user": {
+      "via": "orders",
+      "plugin": "users-permissions",
+      "model": "user"
     }
   }
 }

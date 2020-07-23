@@ -10,8 +10,8 @@
   },
   "attributes": {
     "restaurant": {
-      "model": "restaurant",
-      "via": "factors"
+      "via": "factors",
+      "model": "restaurant"
     },
     "paid": {
       "type": "boolean"

@@ -61,12 +61,12 @@
       "type": "integer"
     },
     "advertises": {
-      "via": "user",
-      "collection": "advertise"
+      "collection": "advertise",
+      "via": "user"
     },
-    "order": {
-      "model": "order",
-      "via": "buyer"
+    "orders": {
+      "collection": "order",
+      "via": "user"
     },
     "payments": {
       "collection": "service",
@@ -75,6 +75,9 @@
     "boosts": {
       "collection": "boost",
       "via": "user"
+    },
+    "favoriteRestaurants": {
+      "collection": "restaurant"
     }
   }
 }

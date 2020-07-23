@@ -21,8 +21,8 @@
       "model": "user"
     },
     "dishes": {
-      "collection": "dish",
-      "via": "restaurant"
+      "via": "restaurant",
+      "collection": "dish"
     },
     "images": {
       "collection": "file",
@@ -34,8 +34,18 @@
       "required": false
     },
     "factors": {
+      "collection": "factor",
+      "via": "restaurant"
+    },
+    "offPrice": {
+      "type": "integer",
+      "default": 0,
+      "min": 0,
+      "max": 100
+    },
+    "orders": {
       "via": "restaurant",
-      "collection": "factor"
+      "collection": "order"
     }
   }
 }

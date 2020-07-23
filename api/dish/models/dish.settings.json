@@ -13,8 +13,8 @@
       "type": "string"
     },
     "restaurant": {
-      "via": "dishes",
-      "model": "restaurant"
+      "model": "restaurant",
+      "via": "dishes"
     },
     "price": {
       "type": "integer"
@@ -40,6 +40,11 @@
       ],
       "plugin": "upload",
       "required": false
+    },
+    "tags": {
+      "collection": "dish-tag",
+      "via": "dishes",
+      "dominant": true
     }
   }
 }

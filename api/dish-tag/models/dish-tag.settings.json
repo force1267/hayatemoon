@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "dish_tags",
+  "info": {
+    "name": "dishTag"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "dishes": {
+      "via": "tags",
+      "collection": "dish"
+    }
+  }
+}
