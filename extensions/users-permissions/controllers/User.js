@@ -244,4 +244,9 @@ module.exports = {
 
     ctx.send(data);
   },
+
+  // send dashboard info
+  async dashboard(ctx) {
+
+  }
 };

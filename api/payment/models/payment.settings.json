@@ -1,6 +1,6 @@
 {
   "kind": "collectionType",
-  "collectionName": "services",
+  "collectionName": "payments",
   "info": {
     "name": "payment"
   },
@@ -10,16 +10,15 @@
   },
   "attributes": {
     "price": {
-      "type": "integer"
+      "type": "biginteger"
     },
     "done": {
-      "type": "boolean",
-      "default": false
+      "type": "boolean"
     },
     "user": {
-      "via": "payments",
       "plugin": "users-permissions",
-      "model": "user"
+      "model": "user",
+      "via": "payments"
     }
   }
 }

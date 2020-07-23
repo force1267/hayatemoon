@@ -68,16 +68,16 @@
       "collection": "order",
       "via": "user"
     },
-    "payments": {
-      "collection": "service",
-      "via": "user"
-    },
     "boosts": {
       "collection": "boost",
       "via": "user"
     },
     "favoriteRestaurants": {
       "collection": "restaurant"
+    },
+    "payments": {
+      "via": "user",
+      "collection": "payment"
     }
   }
 }
