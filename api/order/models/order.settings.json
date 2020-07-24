@@ -27,13 +27,16 @@
       ],
       "default": "incart"
     },
-    "dishes": {
-      "collection": "dish"
-    },
     "user": {
-      "via": "orders",
       "plugin": "users-permissions",
-      "model": "user"
+      "model": "user",
+      "via": "orders"
+    },
+    "dish": {
+      "type": "component",
+      "repeatable": true,
+      "component": "order.dish",
+      "required": false
     }
   }
 }

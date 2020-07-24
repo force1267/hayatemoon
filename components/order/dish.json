@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_order_dishes",
+  "info": {
+    "name": "dish",
+    "icon": "align-left"
+  },
+  "options": {},
+  "attributes": {
+    "dish": {
+      "model": "dish"
+    },
+    "number": {
+      "type": "integer"
+    }
+  }
+}
