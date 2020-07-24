@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_address_items",
+  "info": {
+    "name": "item",
+    "icon": "truck"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "mobile": {
+      "type": "string"
+    },
+    "lng": {
+      "type": "integer"
+    },
+    "lat": {
+      "type": "integer"
+    },
+    "city": {
+      "type": "string"
+    },
+    "neighborhood": {
+      "type": "string"
+    }
+  }
+}

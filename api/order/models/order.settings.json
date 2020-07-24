@@ -37,6 +37,12 @@
       "repeatable": true,
       "component": "order.dish",
       "required": false
+    },
+    "comment": {
+      "type": "string"
+    },
+    "reply": {
+      "type": "string"
     }
   }
 }
