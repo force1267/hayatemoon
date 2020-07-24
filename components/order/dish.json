@@ -1,8 +1,8 @@
 {
   "collectionName": "components_order_dishes",
   "info": {
-    "name": "dish",
-    "icon": "align-left"
+    "name": "item",
+    "icon": "hamburger"
   },
   "options": {},
   "attributes": {

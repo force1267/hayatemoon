@@ -16,9 +16,9 @@
       "type": "boolean"
     },
     "user": {
+      "via": "payments",
       "plugin": "users-permissions",
-      "model": "user",
-      "via": "payments"
+      "model": "user"
     }
   }
 }

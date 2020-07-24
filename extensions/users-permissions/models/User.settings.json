@@ -72,12 +72,12 @@
       "collection": "boost",
       "via": "user"
     },
-    "favoriteRestaurants": {
-      "collection": "restaurant"
+    "favoriteDishes": {
+      "collection": "dish"
     },
     "payments": {
-      "via": "user",
-      "collection": "payment"
+      "collection": "payment",
+      "via": "user"
     }
   }
 }
