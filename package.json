@@ -1,5 +1,5 @@
 {
-  "name": "strapi",
+  "name": "hayatemoon",
   "private": true,
   "version": "0.1.0",
   "description": "A Strapi application",
@@ -11,15 +11,15 @@
   },
   "devDependencies": {},
   "dependencies": {
-    "strapi": "3.0.0-beta.20.1",
-    "strapi-admin": "3.0.0-beta.20.1",
-    "strapi-utils": "3.0.0-beta.20.1",
-    "strapi-plugin-content-type-builder": "3.0.0-beta.20.1",
-    "strapi-plugin-content-manager": "3.0.0-beta.20.1",
-    "strapi-plugin-users-permissions": "3.0.0-beta.20.1",
-    "strapi-plugin-email": "3.0.0-beta.20.1",
-    "strapi-plugin-upload": "3.0.0-beta.20.1",
-    "strapi-connector-bookshelf": "3.0.0-beta.20.1",
+    "strapi": "3.1.1",
+    "strapi-admin": "3.1.1",
+    "strapi-utils": "3.1.1",
+    "strapi-plugin-content-type-builder": "3.1.1",
+    "strapi-plugin-content-manager": "3.1.1",
+    "strapi-plugin-users-permissions": "3.1.1",
+    "strapi-plugin-email": "3.1.1",
+    "strapi-plugin-upload": "3.1.1",
+    "strapi-connector-bookshelf": "3.1.1",
     "knex": "<0.20.0",
     "sqlite3": "latest"
   },
@@ -27,7 +27,7 @@
     "name": "A Strapi developer"
   },
   "strapi": {
-    "uuid": "4b14eef7-d88b-4c9b-bfa7-9428c5a0f725"
+    "uuid": "b9dc23b0-6760-471d-81ab-043499f4d17a"
   },
   "engines": {
     "node": ">=10.0.0",
