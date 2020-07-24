@@ -5,7 +5,7 @@
       "path": "/advertises",
       "handler": "advertise.find",
       "config": {
-        "policies": ["own"]
+        "policies": []
       }
     },
     {
@@ -37,7 +37,7 @@
       "path": "/advertises/:id",
       "handler": "advertise.update",
       "config": {
-        "policies": ["own"]
+        "policies": []
       }
     },
     {
@@ -45,7 +45,7 @@
       "path": "/advertises/:id",
       "handler": "advertise.delete",
       "config": {
-        "policies": ["own"]
+        "policies": []
       }
     }
   ]
