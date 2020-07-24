@@ -57,6 +57,10 @@
       "type": "string",
       "maxLength": 30
     },
+    "family": {
+      "type": "string",
+      "maxLength": 30
+    },
     "balance": {
       "type": "integer"
     },

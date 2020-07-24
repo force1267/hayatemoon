@@ -1,6 +1,8 @@
 module.exports = {
   definition: `
     extend type UsersPermissionsMe {
+      name: String
+      family: String
       balance: Int
       advertises(sort: String, limit: Int, start: Int, where: JSON): [Advertise]
       orders(sort: String, limit: Int, start: Int, where: JSON): [Order]
