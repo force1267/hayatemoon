@@ -21,8 +21,8 @@
       "model": "user"
     },
     "dishes": {
-      "via": "restaurant",
-      "collection": "dish"
+      "collection": "dish",
+      "via": "restaurant"
     },
     "images": {
       "collection": "file",
@@ -44,8 +44,21 @@
       "max": 100
     },
     "orders": {
-      "via": "restaurant",
-      "collection": "order"
+      "collection": "order",
+      "via": "restaurant"
+    },
+    "rate": {
+      "type": "integer"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "fastfood",
+        "cafe",
+        "restaurant",
+        "iranian_food",
+        "turkish_food"
+      ]
     }
   }
 }

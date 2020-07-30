@@ -13,8 +13,8 @@
       "type": "integer"
     },
     "restaurant": {
-      "model": "restaurant",
-      "via": "orders"
+      "via": "orders",
+      "model": "restaurant"
     },
     "state": {
       "type": "enumeration",
@@ -37,6 +37,23 @@
       "repeatable": true,
       "component": "order.dish",
       "required": false
+    },
+    "address": {
+      "type": "json"
+    },
+    "restaurantRate": {
+      "type": "integer"
+    },
+    "foodRate": {
+      "type": "integer"
+    },
+    "experience": {
+      "type": "enumeration",
+      "enum": [
+        "good",
+        "average",
+        "bad"
+      ]
     }
   }
 }

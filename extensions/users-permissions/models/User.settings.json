@@ -69,8 +69,8 @@
       "via": "user"
     },
     "orders": {
-      "collection": "order",
-      "via": "user"
+      "via": "user",
+      "collection": "order"
     },
     "boosts": {
       "collection": "boost",
