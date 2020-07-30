@@ -21,8 +21,8 @@
       "model": "user"
     },
     "dishes": {
-      "collection": "dish",
-      "via": "restaurant"
+      "via": "restaurant",
+      "collection": "dish"
     },
     "images": {
       "collection": "file",
@@ -48,7 +48,8 @@
       "via": "restaurant"
     },
     "rate": {
-      "type": "integer"
+      "type": "float",
+      "max": 5
     },
     "type": {
       "type": "enumeration",

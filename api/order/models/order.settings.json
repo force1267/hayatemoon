@@ -42,10 +42,12 @@
       "type": "json"
     },
     "restaurantRate": {
-      "type": "integer"
+      "type": "float",
+      "max": 5
     },
     "foodRate": {
-      "type": "integer"
+      "type": "float",
+      "max": 5
     },
     "experience": {
       "type": "enumeration",
