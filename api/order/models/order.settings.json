@@ -20,8 +20,8 @@
       "type": "enumeration",
       "enum": [
         "incart",
-        "notpaid",
         "pending",
+        "preparing",
         "delivering",
         "delivered"
       ],
