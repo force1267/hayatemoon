@@ -20,8 +20,8 @@
       "type": "enumeration",
       "enum": [
         "incart",
-        "notpaid",
         "pending",
+        "preparing",
         "delivering",
         "delivered"
       ],
@@ -54,6 +54,12 @@
         "average",
         "bad"
       ]
+    },
+    "comment": {
+      "type": "string"
+    },
+    "reply": {
+      "type": "string"
     }
   }
 }
