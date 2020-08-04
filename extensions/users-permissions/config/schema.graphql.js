@@ -14,6 +14,5 @@ module.exports = {
     }
     extend type Dish {
       liked: Boolean
-    }
-    `,
+    }`,
 };

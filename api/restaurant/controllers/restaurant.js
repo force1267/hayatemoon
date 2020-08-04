@@ -34,5 +34,28 @@ module.exports = {
         }
 
         return entities.map(entity => sanitizeEntity(entity, { model: strapi.models.restaurant }));
-    }
+    },
+
+    /**
+     * Retrieve a record.
+     *
+     * @return {Object}
+     */
+
+    async findOne(ctx) {
+        let userId = ctx.state.user && ctx.state.user.id 
+        let favDishes = null
+        if(userId) {
+            let user = await strapi.query('user', 'users-permissions').findOne({id: userId})
+            favDishes = user.favoriteDishes.map(dish => dish.id)
+        }
+
+        const { id } = ctx.params;
+        const entity = await strapi.services.restaurant.findOne({ id });
+        
+        if(entity && favDishes) for(let d of entity.dishes) {
+            d.liked = favDishes.includes(d.id)
+        }
+        return sanitizeEntity(entity, { model: strapi.models.restaurant });
+    },
 };
