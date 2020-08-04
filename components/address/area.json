@@ -17,6 +17,9 @@
     },
     "radius": {
       "type": "integer"
+    },
+    "neighborhoods": {
+      "type": "json"
     }
   }
 }

@@ -13,8 +13,8 @@
       "type": "string"
     },
     "restaurant": {
-      "via": "dishes",
-      "model": "restaurant"
+      "model": "restaurant",
+      "via": "dishes"
     },
     "price": {
       "type": "integer"
@@ -32,8 +32,8 @@
         "drink"
       ]
     },
-    "images": {
-      "collection": "file",
+    "image": {
+      "model": "file",
       "via": "related",
       "allowedTypes": [
         "images"
