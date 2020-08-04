@@ -11,8 +11,5 @@ module.exports = {
       boosts(sort: String, limit: Int, start: Int, where: JSON): [Boost]
       favoriteDishes(sort: String, limit: Int, start: Int, where: JSON): [Dish]
       payments(sort: String, limit: Int, start: Int, where: JSON): [Payment]
-    }
-    extend type Dish {
-      liked: Boolean
     }`,
 };
