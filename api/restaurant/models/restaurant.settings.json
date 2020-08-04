@@ -21,11 +21,11 @@
       "model": "user"
     },
     "dishes": {
-      "via": "restaurant",
-      "collection": "dish"
+      "collection": "dish",
+      "via": "restaurant"
     },
     "images": {
-      "collection": "file",
+      "model": "file",
       "via": "related",
       "allowedTypes": [
         "images"
