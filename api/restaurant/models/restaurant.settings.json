@@ -21,8 +21,8 @@
       "model": "user"
     },
     "dishes": {
-      "via": "restaurant",
-      "collection": "dish"
+      "collection": "dish",
+      "via": "restaurant"
     },
     "images": {
       "collection": "file",
@@ -60,6 +60,21 @@
         "iranian_food",
         "turkish_food"
       ]
+    },
+    "working_hour_from": {
+      "type": "time"
+    },
+    "working_hour_to": {
+      "type": "time"
+    },
+    "covered_area": {
+      "type": "component",
+      "repeatable": false,
+      "component": "address.area"
+    },
+    "admins": {
+      "plugin": "users-permissions",
+      "collection": "user"
     }
   }
 }

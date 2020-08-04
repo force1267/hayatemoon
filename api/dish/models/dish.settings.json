@@ -13,8 +13,8 @@
       "type": "string"
     },
     "restaurant": {
-      "model": "restaurant",
-      "via": "dishes"
+      "via": "dishes",
+      "model": "restaurant"
     },
     "price": {
       "type": "integer"
@@ -49,6 +49,9 @@
     "rate": {
       "type": "float",
       "max": 5
+    },
+    "orders": {
+      "type": "integer"
     }
   }
 }

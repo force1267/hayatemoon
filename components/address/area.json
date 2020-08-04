@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_address_areas",
+  "info": {
+    "name": "area",
+    "icon": "map-marked"
+  },
+  "options": {},
+  "attributes": {
+    "address": {
+      "type": "string"
+    },
+    "lng": {
+      "type": "decimal"
+    },
+    "lat": {
+      "type": "decimal"
+    },
+    "radius": {
+      "type": "integer"
+    }
+  }
+}
