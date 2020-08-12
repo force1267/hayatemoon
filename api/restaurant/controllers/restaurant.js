@@ -33,7 +33,11 @@ function sanitizeForPublic(res, user) {
                 name: o.user.name
             }
         })),
-        liked: res.liked
+        rate_bad: res.rate_bad,
+        rate_avg: res.rate_avg,
+        rate_good: res.rate_good,
+        food_quality: res.food_quality,
+        // liked: res.liked
     }
 }
 

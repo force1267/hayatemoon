@@ -117,9 +117,6 @@
     },
     "food_quality": {
       "type": "decimal"
-    },
-    "liked": {
-      "type": "boolean"
     }
   }
 }

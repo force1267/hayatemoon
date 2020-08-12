@@ -55,9 +55,6 @@
     },
     "description": {
       "type": "text"
-    },
-    "liked": {
-      "type": "boolean"
     }
   }
 }
