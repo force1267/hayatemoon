@@ -18,6 +18,7 @@ function sanitizeForPublic(res) {
     .map(o => ({
         updated_at: o.updated_at,
         created_at: o.created_at,
+        experience: o.experience,
         comment: o.comment,
         reply: o.reply,
         user: {
