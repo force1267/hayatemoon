@@ -10,6 +10,14 @@
     },
     {
       "method": "GET",
+      "path": "/restaurants/strict",
+      "handler": "restaurant.findStrict",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/restaurants/count",
       "handler": "restaurant.count",
       "config": {
@@ -20,6 +28,14 @@
       "method": "GET",
       "path": "/restaurants/:id",
       "handler": "restaurant.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/restaurants/strict/:id",
+      "handler": "restaurant.findOneStrict",
       "config": {
         "policies": []
       }

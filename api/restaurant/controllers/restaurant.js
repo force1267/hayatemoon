@@ -8,7 +8,23 @@ const { parseMultipartData, sanitizeEntity } = require('strapi-utils');
  * to customize this controller
  */
 
-function sanitizeForPublic(res) {
+async function sanitizeForPublic(res) {
+    let tags = {}
+    for(let dish of res.dishes) {
+        tags[dish.id] = dish.tags.map(tag => tag.name)
+    }
+    let orders = (res.orders || [])
+    .filter(o => o.state === "delivered" && o.comment)
+    .map(o => ({
+        updated_at: o.updated_at,
+        created_at: o.created_at,
+        comment: o.comment,
+        reply: o.reply,
+        user: {
+            name: o.user.name
+        },
+        tags: [... new Set(o.dish.map(d => tags[d.dish]).flat().filter(e=>e))]
+    }))
     return {
         id: res.id,
         name: res.name,
@@ -26,14 +42,7 @@ function sanitizeForPublic(res) {
         categories: res.categories,
         images: res.images,
         dishes: res.dishes,
-        // orders: res.orders.filter(o => o.comment).map(o => ({
-        orders: res.orders.map(o => ({
-            comment: o.comment,
-            reply: o.reply,
-            user: {
-                name: o.user.name
-            }
-        })),
+        orders,
         rate_bad: res.rate_bad,
         rate_avg: res.rate_avg,
         rate_good: res.rate_good,
@@ -42,21 +51,14 @@ function sanitizeForPublic(res) {
     }
 }
 
-async function reshape(ent, ctx) {
-    if(ctx.state.user && ctx.state.user.role.type !== "restaurant") {
-        ent.orders = await strapi.query('order').find({ restaurant: ent.id, comment_ne: null, state: "delivered" })
-        return sanitizeForPublic(ent)
-    } else return ent
-}
-
 module.exports = {
     /**
-     * Retrieve records.
+     * Retrieve records for public.
      *
      * @return {Array}
      */
 
-    async find(ctx) {
+    async findStrict(ctx) {
         let userId = ctx.state.user && ctx.state.user.id 
         let favDishes = null
         if(userId) {
@@ -68,7 +70,7 @@ module.exports = {
         if (ctx.query._q) {
             entities = await strapi.services.restaurant.search(ctx.query);
         } else {
-            entities = await strapi.services.restaurant.find(ctx.query);
+            entities = await strapi.services.restaurant.find(ctx.query, ["dishes", "dishes.tags", "orders", "orders.dish"]);
         }
         if(favDishes) for(let res of entities) for(let d of res.dishes) {
             if(favDishes.includes(d.id)) {
@@ -82,17 +84,17 @@ module.exports = {
         for(let res of entities) if(!res.liked) {
             res.liked = false
         }
-        let reshapeds = await Promise.all(entities.map(entity => reshape(entity, ctx)))
-        return reshapeds.map(entity => sanitizeEntity(entity, { model: strapi.models.restaurant }))
+        let sans = await Promise.all(entities.map(sanitizeForPublic))
+        return sans.map(entity => sanitizeEntity(entity, { model: strapi.models.restaurant }))
     },
 
     /**
-     * Retrieve a record.
+     * Retrieve a record for public.
      *
      * @return {Object}
      */
 
-    async findOne(ctx) {
+    async findOneStrict(ctx) {
         let userId = ctx.state.user && ctx.state.user.id 
         let favDishes = null
         if(userId) {
@@ -101,7 +103,7 @@ module.exports = {
         }
 
         const { id } = ctx.params;
-        const entity = await strapi.services.restaurant.findOne({ id });
+        const entity = await strapi.services.restaurant.findOne({ id }, ["dishes", "dishes.tags"]);
         
         if(entity) if(favDishes) for(let d of entity.dishes) {
             if(favDishes.includes(d.id)) {
@@ -115,6 +117,6 @@ module.exports = {
         if(!entity.liked) {
             entity.liked = false
         }
-        return sanitizeEntity(await reshape(entity, ctx), { model: strapi.models.restaurant });
+        return sanitizeEntity(await sanitizeForPublic(entity), { model: strapi.models.restaurant });
     },
 };
