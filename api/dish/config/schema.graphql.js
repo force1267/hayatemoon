@@ -1,6 +1,6 @@
 module.exports = {
-  // definition: `
-  //   extend type Dish {
-  //     liked: Boolean
-  //   }`,
+  definition: `
+    extend type Dish {
+      liked: Boolean
+    }`,
 };
