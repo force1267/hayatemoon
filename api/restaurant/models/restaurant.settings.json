@@ -21,8 +21,8 @@
       "model": "user"
     },
     "dishes": {
-      "collection": "dish",
-      "via": "restaurant"
+      "via": "restaurant",
+      "collection": "dish"
     },
     "images": {
       "model": "file",
@@ -105,6 +105,21 @@
     },
     "delivery_time": {
       "type": "string"
+    },
+    "rate_bad": {
+      "type": "integer"
+    },
+    "rate_avg": {
+      "type": "integer"
+    },
+    "rate_good": {
+      "type": "integer"
+    },
+    "food_quality": {
+      "type": "decimal"
+    },
+    "liked": {
+      "type": "boolean"
     }
   }
 }

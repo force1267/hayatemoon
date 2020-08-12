@@ -8,6 +8,49 @@ const { parseMultipartData, sanitizeEntity } = require('strapi-utils');
  * to customize this controller
  */
 
+function sanitizeForPublic(res, user) {
+    return {
+        id: res.id,
+        name: res.name,
+        offPrice: res.offPrice,
+        rate: res.rate,
+        type: res.type,
+        orking_hour_from: res.orking_hour_from,
+        working_hour_to: res.working_hour_to,
+        city: res.city,
+        neighborhood: res.neighborhood,
+        address: res.address,
+        least_buy: res.least_buy,
+        delivery_time: res.delivery_time,
+        covered_area: res.covered_area,
+        categories: res.categories,
+        images: res.images,
+        dishes: res.dishes,
+        orders: res.orders.filter(o => o.comment).map(o => ({
+            comment: o.comment,
+            reply: o.reply,
+            user: {
+                name: o.user.name
+            }
+        })),
+        liked: res.liked
+    }
+}
+
+
+async function mustOwn(ctx) {
+
+}
+
+// another one !
+async function updateCtx(ctx) {
+    if(user) {}
+    if(admin) {}
+}
+async function sanitize(ents, ctx) {
+
+}
+
 module.exports = {
     /**
      * Retrieve records.
@@ -41,7 +84,7 @@ module.exports = {
         for(let res of entities) if(!res.liked) {
             res.liked = false
         }
-
+        entities = entities.map(entity => sanitizeForPublic(entity))
         return entities.map(entity => sanitizeEntity(entity, { model: strapi.models.restaurant }));
     },
 
@@ -60,7 +103,7 @@ module.exports = {
         }
 
         const { id } = ctx.params;
-        const entity = await strapi.services.restaurant.findOne({ id });
+        let entity = await strapi.services.restaurant.findOne({ id });
         
         if(entity) if(favDishes) for(let d of entity.dishes) {
             if(favDishes.includes(d.id)) {
@@ -74,6 +117,7 @@ module.exports = {
         if(!entity.liked) {
             entity.liked = false
         }
+        entity = sanitizeForPublic(entity)
         return sanitizeEntity(entity, { model: strapi.models.restaurant });
     },
 };

@@ -13,8 +13,8 @@
       "type": "string"
     },
     "restaurant": {
-      "via": "dishes",
-      "model": "restaurant"
+      "model": "restaurant",
+      "via": "dishes"
     },
     "price": {
       "type": "integer"
@@ -55,6 +55,9 @@
     },
     "description": {
       "type": "text"
+    },
+    "liked": {
+      "type": "boolean"
     }
   }
 }
