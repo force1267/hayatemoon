@@ -8,7 +8,7 @@ const { parseMultipartData, sanitizeEntity } = require('strapi-utils');
  * to customize this controller
  */
 
-function sanitizeForPublic(res, user) {
+function sanitizeForPublic(res) {
     return {
         id: res.id,
         name: res.name,
@@ -26,7 +26,8 @@ function sanitizeForPublic(res, user) {
         categories: res.categories,
         images: res.images,
         dishes: res.dishes,
-        orders: res.orders.filter(o => o.comment).map(o => ({
+        // orders: res.orders.filter(o => o.comment).map(o => ({
+        orders: res.orders.map(o => ({
             comment: o.comment,
             reply: o.reply,
             user: {
@@ -41,18 +42,11 @@ function sanitizeForPublic(res, user) {
     }
 }
 
-
-async function mustOwn(ctx) {
-
-}
-
-// another one !
-async function updateCtx(ctx) {
-    if(user) {}
-    if(admin) {}
-}
-async function sanitize(ents, ctx) {
-
+async function reshape(ent, ctx) {
+    if(ctx.state.user && ctx.state.user.role.type !== "restaurant") {
+        ent.orders = await strapi.query('order').find({ restaurant: ent.id, comment_ne: null, state: "delivered" })
+        return sanitizeForPublic(ent)
+    } else return ent
 }
 
 module.exports = {
@@ -88,8 +82,8 @@ module.exports = {
         for(let res of entities) if(!res.liked) {
             res.liked = false
         }
-        entities = entities.map(entity => sanitizeForPublic(entity))
-        return entities.map(entity => sanitizeEntity(entity, { model: strapi.models.restaurant }));
+        let reshapeds = await Promise.all(entities.map(entity => reshape(entity, ctx)))
+        return reshapeds.map(entity => sanitizeEntity(entity, { model: strapi.models.restaurant }))
     },
 
     /**
@@ -107,7 +101,7 @@ module.exports = {
         }
 
         const { id } = ctx.params;
-        let entity = await strapi.services.restaurant.findOne({ id });
+        const entity = await strapi.services.restaurant.findOne({ id });
         
         if(entity) if(favDishes) for(let d of entity.dishes) {
             if(favDishes.includes(d.id)) {
@@ -121,7 +115,6 @@ module.exports = {
         if(!entity.liked) {
             entity.liked = false
         }
-        entity = sanitizeForPublic(entity)
-        return sanitizeEntity(entity, { model: strapi.models.restaurant });
+        return sanitizeEntity(await reshape(entity, ctx), { model: strapi.models.restaurant });
     },
 };
