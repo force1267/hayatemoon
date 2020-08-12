@@ -8,7 +8,7 @@ const { parseMultipartData, sanitizeEntity } = require('strapi-utils');
  * to customize this controller
  */
 
-async function sanitizeForPublic(res) {
+function sanitizeForPublic(res) {
     let tags = {}
     for(let dish of res.dishes) {
         tags[dish.id] = dish.tags.map(tag => tag.name)
@@ -70,7 +70,7 @@ module.exports = {
         if (ctx.query._q) {
             entities = await strapi.services.restaurant.search(ctx.query);
         } else {
-            entities = await strapi.services.restaurant.find(ctx.query, ["dishes", "dishes.tags", "orders", "orders.dish", "orders.user"]);
+            entities = await strapi.services.restaurant.find(ctx.query, ["dishes", "dishes.tags", "dishes.image", "orders", "orders.dish", "orders.user"]);
         }
         if(favDishes) for(let res of entities) for(let d of res.dishes) {
             if(favDishes.includes(d.id)) {
@@ -84,8 +84,7 @@ module.exports = {
         for(let res of entities) if(!res.liked) {
             res.liked = false
         }
-        let sans = await Promise.all(entities.map(sanitizeForPublic))
-        return sans.map(entity => sanitizeEntity(entity, { model: strapi.models.restaurant }))
+        return entities.map(sanitizeForPublic).map(entity => sanitizeEntity(entity, { model: strapi.models.restaurant }))
     },
 
     /**
@@ -103,7 +102,7 @@ module.exports = {
         }
 
         const { id } = ctx.params;
-        const entity = await strapi.services.restaurant.findOne({ id }, ["dishes", "dishes.tags"]);
+        const entity = await strapi.services.restaurant.findOne({ id }, ["dishes", "dishes.tags", "dishes.image", "orders", "orders.dish", "orders.user"]);
         
         if(entity) if(favDishes) for(let d of entity.dishes) {
             if(favDishes.includes(d.id)) {
@@ -117,6 +116,6 @@ module.exports = {
         if(!entity.liked) {
             entity.liked = false
         }
-        return sanitizeEntity(await sanitizeForPublic(entity), { model: strapi.models.restaurant });
+        return sanitizeEntity(sanitizeForPublic(entity), { model: strapi.models.restaurant });
     },
 };
