@@ -15,7 +15,7 @@ function sanitizeForPublic(res, user) {
         offPrice: res.offPrice,
         rate: res.rate,
         type: res.type,
-        orking_hour_from: res.orking_hour_from,
+        orking_hour_from: res.working_hour_from,
         working_hour_to: res.working_hour_to,
         city: res.city,
         neighborhood: res.neighborhood,
