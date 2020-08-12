@@ -52,6 +52,9 @@
     },
     "orders": {
       "type": "integer"
+    },
+    "description": {
+      "type": "text"
     }
   }
 }

@@ -6,9 +6,6 @@
   },
   "options": {},
   "attributes": {
-    "address": {
-      "type": "string"
-    },
     "lng": {
       "type": "decimal"
     },

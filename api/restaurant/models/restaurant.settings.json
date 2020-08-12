@@ -21,8 +21,8 @@
       "model": "user"
     },
     "dishes": {
-      "collection": "dish",
-      "via": "restaurant"
+      "via": "restaurant",
+      "collection": "dish"
     },
     "images": {
       "model": "file",
@@ -75,6 +75,25 @@
     "admins": {
       "plugin": "users-permissions",
       "collection": "user"
+    },
+    "city": {
+      "type": "enumeration",
+      "enum": [
+        "Galanta",
+        "Ankara",
+        "Istanbul"
+      ]
+    },
+    "neighborhood": {
+      "type": "enumeration",
+      "enum": [
+        "Galanta",
+        "Ankara",
+        "Istanbul"
+      ]
+    },
+    "address": {
+      "type": "string"
     }
   }
 }
