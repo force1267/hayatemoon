@@ -5,4 +5,32 @@
  * to customize this controller
  */
 
-module.exports = {};
+module.exports = {
+    async order(ctx) {
+        let userId = ctx.state.user && ctx.state.user.id
+        if(!userId) return ctx.unauthorized("you can't order")
+
+        let cart = await strapi.services.order.findOne({ user: userId, state: "incart" });
+        if(!cart) {
+            cart = await strapi.services.order.create({ user: userId })
+        }
+        let { dish: dishId, number } = ctx.request.body
+        if(!dishId) return ctx.badRequest("send { dish: dishId }")
+        let dish = await strapi.services.dish.findOne({ id: dishId })
+        if(!dish) return ctx.badRequest("dish does not exist")
+        cart.dish = cart.dish.filter(d => d.dish && d.dish.id !== dishId)
+        if(number > 0) {
+            cart.dish.push({ dish, number })
+        }
+
+        let price = 0
+        for(let dish of cart.dish) {
+            console.log(dish.number, dish.dish.price)
+            price += (dish.number * dish.dish.price)
+        }
+        cart.price = price
+        cart = await strapi.services.order.update({ id: cart.id }, cart)
+        
+        return cart
+    }
+};
