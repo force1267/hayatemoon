@@ -30,9 +30,16 @@ module.exports = {
             entities = await strapi.services.restaurant.find(ctx.query);
         }
         if(favDishes) for(let res of entities) for(let d of res.dishes) {
-            d.liked = favDishes.includes(d.id)
+            if(favDishes.includes(d.id)) {
+                res.liked = d.liked = true
+            } else {
+                d.liked = false
+            }
         } else for(let res of entities) for(let d of res.dishes) {
             d.liked = false
+        }
+        for(let res of entities) if(!res.liked) {
+            res.liked = false
         }
 
         return entities.map(entity => sanitizeEntity(entity, { model: strapi.models.restaurant }));
@@ -56,9 +63,16 @@ module.exports = {
         const entity = await strapi.services.restaurant.findOne({ id });
         
         if(entity) if(favDishes) for(let d of entity.dishes) {
-            d.liked = favDishes.includes(d.id)
+            if(favDishes.includes(d.id)) {
+                entity.liked = d.liked = true
+            } else {
+                d.liked = false
+            }
         } else for(let d of entity.dishes) {
             d.liked = false
+        }
+        if(!entity.liked) {
+            entity.liked = false
         }
         return sanitizeEntity(entity, { model: strapi.models.restaurant });
     },
