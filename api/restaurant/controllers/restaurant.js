@@ -70,7 +70,7 @@ module.exports = {
         if (ctx.query._q) {
             entities = await strapi.services.restaurant.search(ctx.query);
         } else {
-            entities = await strapi.services.restaurant.find(ctx.query, ["dishes", "dishes.tags", "orders", "orders.dish"]);
+            entities = await strapi.services.restaurant.find(ctx.query, ["dishes", "dishes.tags", "orders", "orders.dish", "orders.user"]);
         }
         if(favDishes) for(let res of entities) for(let d of res.dishes) {
             if(favDishes.includes(d.id)) {
