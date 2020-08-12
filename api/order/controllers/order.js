@@ -42,6 +42,30 @@ module.exports = {
         return cart
     },
     async finish(ctx) {
-        return {}
+        let userId = ctx.state.user && ctx.state.user.id
+        if(!userId) return ctx.unauthorized("you can't order")
+
+        let cart = await strapi.services.order.findOne({ user: userId, state: "incart" })
+        if(!cart) return ctx.badRequest("your cart is empty")
+
+        if(cart.price > ctx.state.user.balance) return ctx.badRequest("your balance is low")
+
+        let balance = ctx.state.user.balance
+        let price = cart.price
+
+        try {
+            await strapi.query('user', 'users-permissions').update({ id: userId }, { balance: balance - price })
+        } catch (e) {
+            await strapi.query('user', 'users-permissions').update({ id: userId }, { balance })
+            return ctx.internalError("server error")
+        }
+
+        try {
+            await strapi.services.order.update({ id: cart.id }, { state: "pending" })
+        } catch (e) {
+            await strapi.services.order.update({ id: cart.id }, { state: "incart" })
+            await strapi.query('user', 'users-permissions').update({ id: userId }, { balance })
+            return ctx.internalError("server error")
+        }
     }
 };
