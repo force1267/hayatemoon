@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_menu_categories",
+  "info": {
+    "name": "categories",
+    "icon": "align-left"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "enumeration",
+      "enum": [
+        "pizza",
+        "burger",
+        "salad",
+        "sandwich",
+        "pasta",
+        "meat",
+        "potato",
+        "addon",
+        "drink",
+        "vegetable"
+      ]
+    },
+    "dishes": {
+      "collection": "dish"
+    }
+  }
+}

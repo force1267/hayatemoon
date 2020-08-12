@@ -21,8 +21,8 @@
       "model": "user"
     },
     "dishes": {
-      "via": "restaurant",
-      "collection": "dish"
+      "collection": "dish",
+      "via": "restaurant"
     },
     "images": {
       "model": "file",
@@ -94,6 +94,11 @@
     },
     "address": {
       "type": "string"
+    },
+    "categories": {
+      "type": "component",
+      "repeatable": true,
+      "component": "menu.categories"
     }
   }
 }
