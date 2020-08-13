@@ -13,18 +13,14 @@
     "icon": {
       "type": "enumeration",
       "enum": [
-        "pizza",
+        "appetizer",
         "burger",
-        "salad",
-        "sandwich",
-        "pasta",
-        "meat",
-        "potato",
-        "addon",
         "drink",
-        "vegetable"
-      ],
-      "required": true
+        "fried",
+        "pasta",
+        "salad",
+        "sandwich"
+      ]
     },
     "dishes": {
       "collection": "dish"
