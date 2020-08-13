@@ -11,7 +11,7 @@ module.exports = {
         if(!userId) return ctx.unauthorized("you can't order")
 
         let { dish: dishId, number } = ctx.request.body
-        dish = parseInt(dish)
+        dishId = parseInt(dishId)
         number = parseInt(number)
         if(!dishId) return ctx.badRequest("send { dish: dishId }")
         let dish = await strapi.services.dish.findOne({ id: dishId }, ["restaurant"])
