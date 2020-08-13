@@ -15,7 +15,7 @@ module.exports = {
         number = parseInt(number)
         if(!dishId) return ctx.badRequest("send { dish: dishId }")
         let dish = await strapi.services.dish.findOne({ id: dishId }, ["restaurant"])
-        if(!dish) return ctx.badRequest("dish does not exist")
+        if(!dish || !dish.restaurant) return ctx.badRequest("dish does not exist")
         
         let cart = await strapi.services.order.findOne({ user: userId, state: "incart" })
         if(!cart) {

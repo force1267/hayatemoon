@@ -7,7 +7,8 @@
   "options": {},
   "attributes": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "icon": {
       "type": "enumeration",
@@ -22,7 +23,8 @@
         "addon",
         "drink",
         "vegetable"
-      ]
+      ],
+      "required": true
     },
     "dishes": {
       "collection": "dish"
