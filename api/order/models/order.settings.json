@@ -38,9 +38,6 @@
       "component": "order.dish",
       "required": false
     },
-    "address": {
-      "type": "json"
-    },
     "restaurantRate": {
       "type": "float",
       "max": 5
@@ -61,6 +58,9 @@
       "type": "string"
     },
     "reply": {
+      "type": "string"
+    },
+    "address": {
       "type": "string"
     }
   }
