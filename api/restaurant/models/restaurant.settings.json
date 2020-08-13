@@ -22,8 +22,8 @@
       "model": "user"
     },
     "dishes": {
-      "via": "restaurant",
-      "collection": "dish"
+      "collection": "dish",
+      "via": "restaurant"
     },
     "images": {
       "model": "file",
@@ -63,10 +63,12 @@
       ]
     },
     "working_hour_from": {
-      "type": "time"
+      "type": "time",
+      "required": true
     },
     "working_hour_to": {
-      "type": "time"
+      "type": "time",
+      "required": true
     },
     "covered_area": {
       "type": "component",
@@ -118,6 +120,10 @@
     },
     "food_quality": {
       "type": "decimal"
+    },
+    "recommended": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
