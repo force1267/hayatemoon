@@ -21,8 +21,8 @@
       "model": "user"
     },
     "dishes": {
-      "via": "restaurant",
-      "collection": "dish"
+      "collection": "dish",
+      "via": "restaurant"
     },
     "images": {
       "model": "file",
@@ -117,6 +117,10 @@
     },
     "food_quality": {
       "type": "decimal"
+    },
+    "recommended": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
