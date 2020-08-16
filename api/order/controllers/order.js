@@ -1,5 +1,8 @@
 'use strict';
 
+const { sanitizeEntity } = require('strapi-utils');
+const { userOf } = require('../../is')
+
 /**
  * Read the documentation (https://strapi.io/documentation/3.0.0-beta.x/concepts/controllers.html#core-controllers)
  * to customize this controller
@@ -69,5 +72,125 @@ module.exports = {
             await strapi.query('user', 'users-permissions').update({ id: userId }, { balance })
             return ctx.internalError("server error")
         }
-    }
-};
+    },
+
+    async find(ctx) {
+        let user = await userOf(ctx)
+        if(user.role.name === "panel") {
+            if(!ctx.query.restaurant) {
+                return ctx.badRequest('add field `restaurant`')
+            }
+            let resq = {
+                _where: {
+                    id: ctx.query.restaurant.id || ctx.query.restaurant,
+                    _or: [
+                        { owner: user.id },
+                        { admins_contains: user.id }
+                    ]
+                }
+            }
+            let restaurant = await strapi.services.restaurant.findOne(resq)
+            if(!restaurant) return ctx.unauthorized('not your restaurant')
+        } else {
+            ctx.query.user = user.id
+        }
+
+        let entities;
+        if (ctx.query._q) {
+            entities = await strapi.services.order.search(ctx.query);
+        } else {
+            entities = await strapi.services.order.find(ctx.query);
+        }
+    
+        return entities.map(entity => sanitizeEntity(entity, { model: strapi.models.order }));
+    },
+
+    async findOne(ctx) {
+        const { id } = ctx.params
+        const order = await strapi.services.order.findOne({ id },[
+            "restaurant",
+            "restaurant.owner",
+            "restaurant.admins",
+            "user",
+        ])
+        if(!order) return order
+
+        let user = await userOf(ctx)
+        if(user.role.name === "panel") {
+            if(!order.restaurant) {
+                return ctx.badRequest('order does not have `restaurant`')
+            }
+            
+            if((order.restaurant.owner && order.restaurant.owner.id != user.id) &&
+            !order.restaurant.admins.filter(a => a.id).includes(user.id)) {
+                return ctx.unauthorized('not your restaurant')
+            }
+        } else {
+            delete order.restaurant.owner
+            delete order.restaurant.admins
+        }
+
+        return sanitizeEntity(order, { model: strapi.models.order });
+    },
+
+    async update(ctx) {
+        const { id } = ctx.params;
+        const order = await strapi.services.order.findOne({ id },[
+            "restaurant",
+            "restaurant.owner",
+            "restaurant.admins",
+            "user",
+        ])
+        if(!order) return order
+
+        let user = await userOf(ctx)
+        let data;
+        if(user.role.name === "panel") {
+            if(!order.restaurant) {
+                return ctx.badRequest('order does not have `restaurant`')
+            }
+            
+            if((order.restaurant.owner && order.restaurant.owner.id != user.id) &&
+            !order.restaurant.admins.filter(a => a.id).includes(user.id)) {
+                return ctx.unauthorized('not your restaurant')
+            }
+            
+            let { reply, state } = ctx.request.body
+            if(state && state != "incart") {
+                data = { state }
+            } else if(reply && order.comment) {
+                data = { reply }
+            } else {
+                return ctx.unauthorized("admins can't change order's details")
+            }
+        } else {
+            let {
+                dish,
+                address,
+                comment,
+                rate, restaurantRate, foodRate, experience
+            } = ctx.request.body
+            if(order.state == "incart") {
+                data = {}
+                if(dish) data.dish = dish
+                if(address) data.address = address
+            } else if(order.state == "delivered" &&
+            new Date(order.updated_at) + (24 * 60 * 60 * 1000) > new Date().getTime()) {
+                data = {
+                    comment,
+                    rate,
+                    restaurantRate,
+                    foodRate,
+                    experience
+                }
+            } else {
+                return ctx.unauthorized("you can't change a placed order")
+            }
+        }
+        
+        let entity;
+        entity = await strapi.services.restaurant.update({ id }, data)
+        
+        return sanitizeEntity(entity, { model: strapi.models.restaurant })
+    },
+}

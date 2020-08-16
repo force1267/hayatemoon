@@ -21,6 +21,7 @@
       "enum": [
         "incart",
         "pending",
+        "rejected",
         "preparing",
         "delivering",
         "delivered"
