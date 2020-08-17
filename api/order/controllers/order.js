@@ -175,7 +175,7 @@ module.exports = {
                 if(dish) data.dish = dish
                 if(address) data.address = address
             } else if(order.state == "delivered" &&
-            new Date(order.updated_at) + (24 * 60 * 60 * 1000) > new Date().getTime()) {
+            new Date(order.updated_at).getTime() + (24 * 60 * 60 * 1000) > new Date().getTime()) {
                 data = {
                     comment,
                     rate,
