@@ -8,7 +8,6 @@
   "attributes": {
     "name": {
       "type": "string",
-      "private": false,
       "required": true
     },
     "icon": {
