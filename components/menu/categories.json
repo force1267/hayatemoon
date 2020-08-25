@@ -7,7 +7,9 @@
   "options": {},
   "attributes": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "private": false,
+      "required": true
     },
     "icon": {
       "type": "enumeration",
@@ -19,7 +21,8 @@
         "pasta",
         "salad",
         "sandwich"
-      ]
+      ],
+      "required": true
     },
     "dishes": {
       "collection": "dish"
