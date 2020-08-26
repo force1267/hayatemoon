@@ -101,7 +101,8 @@
     "categories": {
       "type": "component",
       "repeatable": true,
-      "component": "menu.categories"
+      "component": "menu.categories",
+      "required": false
     },
     "least_buy": {
       "type": "integer"
@@ -124,6 +125,9 @@
     "recommended": {
       "type": "boolean",
       "default": false
+    },
+    "phone": {
+      "type": "string"
     }
   }
 }

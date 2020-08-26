@@ -20,7 +20,8 @@
         "pasta",
         "salad",
         "sandwich"
-      ]
+      ],
+      "required": true
     },
     "dishes": {
       "collection": "dish"
