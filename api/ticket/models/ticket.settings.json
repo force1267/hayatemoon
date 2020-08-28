@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tickets",
+  "info": {
+    "name": "ticket"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "tickets"
+    },
+    "closed": {
+      "type": "boolean",
+      "default": false
+    },
+    "ticket_messages": {
+      "via": "ticket",
+      "collection": "ticket-message"
+    }
+  }
+}

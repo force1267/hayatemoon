@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ticket_messages",
+  "info": {
+    "name": "TicketMessage"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "massage": {
+      "type": "string"
+    },
+    "ticket": {
+      "model": "ticket",
+      "via": "ticket_messages"
+    },
+    "isFromSupport": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

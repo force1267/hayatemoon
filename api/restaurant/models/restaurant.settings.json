@@ -101,8 +101,7 @@
     "categories": {
       "type": "component",
       "repeatable": true,
-      "component": "menu.categories",
-      "required": false
+      "component": "menu.categories"
     },
     "least_buy": {
       "type": "integer"
@@ -126,7 +125,88 @@
       "type": "boolean",
       "default": false
     },
-    "phone": {
+    "IDCardImage": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "ProductionLicenseImage": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "BuildingPermitsImage": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "HealthLicenseImage": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "IDCard": {
+      "type": "enumeration",
+      "enum": [
+        "wait",
+        "reject",
+        "confirm"
+      ],
+      "default": "wait"
+    },
+    "ProductionLicense": {
+      "type": "enumeration",
+      "enum": [
+        "wait",
+        "reject",
+        "confirm"
+      ],
+      "default": "wait"
+    },
+    "BuildingPermits": {
+      "type": "enumeration",
+      "enum": [
+        "wait",
+        "reject",
+        "confirm"
+      ],
+      "default": "wait"
+    },
+    "HealthLicense": {
+      "type": "enumeration",
+      "enum": [
+        "wait",
+        "reject",
+        "confirm"
+      ],
+      "default": "wait"
+    },
+    "IDCardRejectReason": {
+      "type": "string"
+    },
+    "ProductionLicenseRejectReason": {
+      "type": "string"
+    },
+    "BuildingPermitsRejectReason": {
+      "type": "string"
+    },
+    "HealthLicenseRejectReason": {
       "type": "string"
     }
   }

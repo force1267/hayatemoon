@@ -1,6 +1,8 @@
 'use strict';
 
-const { parseMultipartData, sanitizeEntity } = require('strapi-utils');
+const { parseMultipartData, sanitizeEntity } = require('strapi-utils')
+const { userOf } = require('../../is')
+
 
 
 /**
