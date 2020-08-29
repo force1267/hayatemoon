@@ -208,6 +208,9 @@
     },
     "HealthLicenseRejectReason": {
       "type": "string"
+    },
+    "phone": {
+      "type": "string"
     }
   }
 }
