@@ -9,13 +9,12 @@
     "timestamps": true
   },
   "attributes": {
-    "massage": {
-      "type": "string",
-      "required": true
+    "message": {
+      "type": "string"
     },
     "ticket": {
-      "via": "ticket_messages",
-      "model": "ticket"
+      "model": "ticket",
+      "via": "ticket_messages"
     },
     "isFromSupport": {
       "type": "boolean",
