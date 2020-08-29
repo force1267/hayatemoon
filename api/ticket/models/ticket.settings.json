@@ -19,15 +19,16 @@
       "default": false
     },
     "ticket_messages": {
-      "via": "ticket",
-      "collection": "ticket-message"
+      "collection": "ticket-message",
+      "via": "ticket"
     },
     "subject": {
       "type": "enumeration",
       "enum": [
-        "help",
-        "payment",
-        "other"
+        "Help",
+        "RequestPay",
+        "RequestdDiscount",
+        "Other"
       ]
     }
   }
