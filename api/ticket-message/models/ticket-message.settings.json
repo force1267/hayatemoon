@@ -19,9 +19,6 @@
     "isFromSupport": {
       "type": "boolean",
       "default": false
-    },
-    "reply": {
-      "type": "string"
     }
   }
 }
