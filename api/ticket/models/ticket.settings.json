@@ -19,8 +19,8 @@
       "default": false
     },
     "ticket_messages": {
-      "collection": "ticket-message",
-      "via": "ticket"
+      "via": "ticket",
+      "collection": "ticket-message"
     },
     "subject": {
       "type": "enumeration",

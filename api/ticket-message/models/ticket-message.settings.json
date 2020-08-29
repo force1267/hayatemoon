@@ -13,12 +13,15 @@
       "type": "string"
     },
     "ticket": {
-      "via": "ticket_messages",
-      "model": "ticket"
+      "model": "ticket",
+      "via": "ticket_messages"
     },
     "isFromSupport": {
       "type": "boolean",
       "default": false
+    },
+    "reply": {
+      "type": "string"
     }
   }
 }
