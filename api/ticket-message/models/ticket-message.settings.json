@@ -13,8 +13,8 @@
       "type": "string"
     },
     "ticket": {
-      "model": "ticket",
-      "via": "ticket_messages"
+      "via": "ticket_messages",
+      "model": "ticket"
     },
     "isFromSupport": {
       "type": "boolean",

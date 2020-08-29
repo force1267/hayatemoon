@@ -13,14 +13,18 @@ module.exports = {
     async send(ctx) {
         /* body = {
             ticket: undefined | ticket.id
+            subject: enum string
             message: string
         }
         if ticket was present, send a message to that ticket.
         else create a new ticket and send message to that ticket. */
         let user = ctx.state.user
-        let { ticket, message } = ctx.request.body
+        let { ticket, subject, message } = ctx.request.body
         if(!ticket) {
-            ticket = await strapi.services.ticket.create({ user: user.id, closed: false })
+            if(!subject) {
+                return ctx.badRequest("no `subject` field")
+            }
+            ticket = await strapi.services.ticket.create({ user: user.id, closed: false, subject })
         }
         let isFromSupport = user.roles && user.roles[0].code === 'strapi-super-admin'
         let entity = await strapi.services['ticket-message'].create({ ticket, message, isFromSupport });

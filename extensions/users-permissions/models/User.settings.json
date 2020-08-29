@@ -69,8 +69,8 @@
       "type": "integer"
     },
     "advertises": {
-      "collection": "advertise",
-      "via": "user"
+      "via": "user",
+      "collection": "advertise"
     },
     "orders": {
       "via": "user",
