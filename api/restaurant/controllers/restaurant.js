@@ -50,7 +50,7 @@ function sanitizeForPublic(res) {
         rate_avg: res.rate_avg,
         rate_good: res.rate_good,
         food_quality: res.food_quality,
-        // liked: res.liked
+        liked: res.liked
     }
 }
 
