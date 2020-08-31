@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hayat tickets</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+        input:not([type=button]) {
+            width: 300px;
+            height: 50px;
+        }
+        input[type=button] {
+            width: 100px;
+            height: 50px;
+        }
+        main:not(.in), #login.in, .empty { display: none; }
+        main {
+            display: grid;
+            grid-template-areas: 'list chat';
+            grid-template-columns: 1fr 1fr;
+        }
+        #chat {
+            grid-area: chat;
+            padding: 15px;
+            margin-left: 10px;
+            border: solid 1px black;
+            border-radius: 5px;
+        }
+        #chat p.support {
+            text-align: right;
+            border-right: solid 3px black;
+            padding-right: 3px;
+        }
+        #chat p:not(.support) {
+            text-align: left;
+            border-left: solid 3px black;
+            padding-left: 3px;
+        }
+        main table { grid-area: list; }
+        .red {
+            background-color: coral;
+            color: floralwhite;
+        }
+    </style>
+</head>
+
+<body>
+    <section id="login">
+        <input type="email" placeholder="email">
+        <input type="password" placeholder="password">
+        <input type="button" value="Login" onclick="login()">
+    </section>
+    <main>
+        <table>
+            <tr>
+                <th>id</th>
+                <th>Subject</th>
+                <th>User</th>
+                <th>Restaurants</th>
+            </tr>
+        </table>
+        <section id="chat" class="empty"></section>
+    </main>
+    <script>
+        let host = 'http://localhost:1337'
+        let jwt = null
+        let tickets = []
+        async function login() {
+            let email = document.querySelector("#login input[type=email]").value
+            let password = document.querySelector("#login input[type=password]").value
+            try {
+                if(!email || !password) throw new Error("email or password field is not filled")
+                let { data: { token }} = await fetch(host + "/admin/login", {
+                    "method": "POST",
+                    "headers": {
+                        "content-type": "application/json"
+                    },
+                    "body": JSON.stringify({email, password})
+                }).then(res => res.json())
+                jwt = token
+                document.querySelector('main').classList.add('in')
+                document.querySelector('#login').classList.add('in')
+                start()
+            } catch (error) {
+                console.error(error)
+                alert('Error, please try again')
+            }
+        }
+        function start() {
+            setInterval(refresh, 5000)
+            refresh()
+        }
+        async function refresh() {
+            let data = await fetch(host + "/tickets?closed=false", {
+                headers: { "Authorization": "Bearer " + jwt }
+            }).then(res => res.json())
+            tickets = data
+            document.querySelector('main table').innerHTML = "<tr><th>id</th><th>Subject</th><th>User</th><th>Restaurants</th></tr>" +
+            (await Promise.all(data.map(async ({id, subject, user: { id: userId, email }}) => {
+                let restaurants = await fetch(host + "/restaurants?owner=" + userId, {
+                    headers: { "Authorization": "Bearer " + jwt }
+                }).then(res => res.json())
+                return `<tr onclick="chat(${id})"><td>${id}</td><td>${subject}</td><td>${email}</td><td>${restaurants.map(r => r.name).join(", ")}</td></tr>`
+            }))).join('')
+            if(opened_chat) chat(opened_chat)
+        }
+        var opened_chat = null
+        function chat(id) {
+            let ticket = tickets.find(t => t.id == id)
+            if(ticket) {
+                let { ticket_messages: msgs } = ticket
+                if(msgs) {
+                    let ce = document.querySelector('#chat')
+                    ce.classList.remove('empty')
+                    ce.innerHTML = msgs.map(({message, isFromSupport: r}) => `<p${r?' class="support"':''}>${message}</p>`).join('') + 
+                    `<input type="text" placeholder="Message"><input type="button" value="Send" onclick="send(${id})"><br><input type="button" class="red" value="close ticket" onclick="closeTicket(${id})">`
+                    opened_chat = id
+                }
+            }
+        }
+        async function send(id) {
+            let msg = document.querySelector('#chat input[type=text]')
+            if(!msg) throw new Error('no ticket is opened')
+            let t = msg.value
+            if(!t) return;
+            let data = await fetch(host + "/tickets/send", {
+                method: "POST",
+                headers: { "Authorization": "Bearer " + jwt, "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    ticket: id,
+                    message: t
+                })
+            }).then(res => res.json())
+            await refresh()
+        }
+        async function closeTicket(id) {
+            let data = await fetch(host + "/tickets/" + id, {
+                method: "PUT",
+                headers: { "Authorization": "Bearer " + jwt, "Content-Type": "application/json" },
+                body: JSON.stringify({ closed: true })
+            }).then(res => res.json())
+            console.log(id, data)
+            let ce = document.querySelector('#chat')
+            ce.classList.add('empty')
+            refresh()
+        }
+        // dev auto start:
+        document.querySelector("#login input[type=email]").value = "force1267@gmail.com"
+        document.querySelector("#login input[type=password]").value = "camelForce1267"
+        login()
+    </script>
+</body>
+</html>
