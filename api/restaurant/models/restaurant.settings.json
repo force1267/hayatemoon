@@ -22,8 +22,8 @@
       "model": "user"
     },
     "dishes": {
-      "collection": "dish",
-      "via": "restaurant"
+      "via": "restaurant",
+      "collection": "dish"
     },
     "image": {
       "model": "file",

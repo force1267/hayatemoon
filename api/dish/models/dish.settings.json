@@ -14,8 +14,8 @@
       "required": true
     },
     "restaurant": {
-      "via": "dishes",
-      "model": "restaurant"
+      "model": "restaurant",
+      "via": "dishes"
     },
     "price": {
       "type": "integer"
@@ -56,6 +56,10 @@
     },
     "description": {
       "type": "text"
+    },
+    "available": {
+      "type": "boolean",
+      "default": true
     }
   }
 }
